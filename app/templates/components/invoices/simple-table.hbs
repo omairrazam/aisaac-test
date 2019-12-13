@@ -1,0 +1,46 @@
+{{#light-table table height='65vh' tableActions=(hash
+        editInvoice=(action 'editInvoice')
+        deleteInvoice=(action 'deleteInvoice')
+) as |t|}}
+
+  {{t.head
+          onColumnClick=(action 'onColumnClick')
+          iconSortable='fa fa-sort'
+          iconAscending='fa fa-sort-asc'
+          iconDescending='fa fa-sort-desc'
+          fixed=true
+  }}
+
+  {{#t.body
+          canSelect=false
+          onScrolledToBottom=(action 'onScrolledToBottom')
+  as |body|
+  }}
+    {{#if isLoading}}
+      {{#body.loader}}
+        {{app/table-loader}}
+      {{/body.loader}}
+    {{/if}}
+  {{/t.body}}
+
+  {{#t.foot fixed=true as |columns|}}
+    <tr>
+      <td class="align-center" colspan="4">
+        <strong>Search From</strong>
+        <input type="date" value={{quer}} name="startDate" oninput={{action 'onSearchChange' value="target"}} placeholder="enter start date">
+        <strong>To</strong>
+        <input type="date" value={{quer}} name="endDate" oninput={{action 'onSearchChange' value="target" }}  placeholder="endEnd Date">
+      </td>
+      <td class="align-center" colspan="2">
+        <strong>Total: {{listedInvoicesAmount}}</strong>
+      </td>
+    </tr>
+  {{/t.foot}}
+
+{{/light-table}}
+
+{{#if this.editableInvoice}}
+  {{#app/modal-dialog showDialog=showInvoicePopup}}
+    {{invoices/invoice-form invoice=this.editableInvoice onClose=(action (mut showInvoicePopup) false)}}
+  {{/app/modal-dialog}}
+{{/if}}
