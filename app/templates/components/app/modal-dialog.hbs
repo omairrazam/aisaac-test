@@ -1,0 +1,17 @@
+{{#if showDialog}}
+  {{#modal-dialog
+          onClose=(action 'onClose')
+          translucentOverlay=true
+          targetAttachment='none'
+          containerClass='centered-scrolling-container'
+          overlayClass='centered-scrolling-overlay'
+          wrapperClass='centered-scrolling-wrapper'
+  }}
+    {{#if (has-block)}}
+      {{yield}}
+    {{/if}}
+  {{/modal-dialog}}
+{{/if}}
+
+
+

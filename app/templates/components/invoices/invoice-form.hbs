@@ -1,0 +1,13 @@
+<BsForm @formLayout="vertical" @model={{this.invoice}} @onSubmit={{action "submit"}} as |form|>
+  <h1>Invoice Form</h1>
+  <form.element @controlType="number" @label="amount" @placeholder="Amount" @property="amount" />
+  <form.element @controlType="date" @label="date" @placeholder="Date" @property="date" />
+  <BsButton @buttonType="submit" @disabled={{form.isSubmitting}}>
+    Save
+    {{#if form.isSubmitting}} ... {{/if}}
+  </BsButton>
+
+  <BsButton onclick={{action this.onClose}} >
+    Cancel
+  </BsButton>
+</BsForm>
